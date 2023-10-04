@@ -1,0 +1,14 @@
+{
+    "include": ["src/**/*.{js,vue}"],
+    "compilerOptions": {
+        "strict": true,
+        "module": "esnext",
+        "target": "esnext",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+        "allowJs": true,
+        "checkJs": true
+    }
+}
