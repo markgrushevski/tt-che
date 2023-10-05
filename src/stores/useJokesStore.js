@@ -31,8 +31,10 @@ export const useJokesStore = defineStore('jokes', () => {
                 jokeList.value = res.result;
                 isLoading.value = false;
 
-                lastQuery.value = query;
-                lastJokeList.value = res.result;
+                if (res.result.length) {
+                    lastQuery.value = query;
+                    lastJokeList.value = res.result;
+                }
             })
             .catch((e) => {
                 console.error(e);
