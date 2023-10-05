@@ -1,9 +1,12 @@
 <script setup>
 import { debounce } from '@/lib/debounce.js';
 import { useJokesStore } from '@/stores/useJokesStore.js';
+import { computed } from 'vue';
 const store = useJokesStore();
 
 const setJokes = debounce(store.setJokes, 300);
+
+const isJokeListEmpty = computed(() => store.jokeList && !store.jokeList.length);
 </script>
 
 <template>
@@ -19,6 +22,8 @@ const setJokes = debounce(store.setJokes, 300);
                 <span>{{ joke.created_at.split(' ')[0] }}</span>
             </div>
         </a>
+
+        <p v-show="isJokeListEmpty" style="font-size: 1.5rem; font-style: italic">Jokes not found...</p>
     </div>
 </template>
 
