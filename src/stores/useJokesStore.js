@@ -6,12 +6,20 @@ export const useJokesStore = defineStore('jokes', () => {
 
     const isLoading = ref(false);
 
+    const lastQuery = ref('');
+    const lastJokeList = ref(null);
+
     /** @param {string} query */
     async function setJokes(query) {
         query &&= query.trim();
 
         if (query?.length < 3) {
             jokeList.value = null;
+            return;
+        }
+
+        if (query === lastQuery.value) {
+            jokeList.value = lastJokeList.value;
             return;
         }
 
@@ -22,6 +30,9 @@ export const useJokesStore = defineStore('jokes', () => {
             .then((res) => {
                 jokeList.value = res.result;
                 isLoading.value = false;
+
+                lastQuery.value = query;
+                lastJokeList.value = res.result;
             })
             .catch((e) => {
                 console.error(e);
@@ -29,5 +40,5 @@ export const useJokesStore = defineStore('jokes', () => {
             });
     }
 
-    return { jokeList, setJokes };
+    return { jokeList, isLoading, setJokes };
 });

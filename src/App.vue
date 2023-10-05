@@ -22,8 +22,10 @@ const isJokeListEmpty = computed(() => store.jokeList && !store.jokeList.length)
                 <span>{{ joke.created_at.split(' ')[0] }}</span>
             </div>
         </a>
-
-        <p v-show="isJokeListEmpty" style="font-size: 1.5rem; font-style: italic">Jokes not found...</p>
+        <p v-show="store.isLoading" style="font-size: 1.25rem; font-style: italic">Loading...</p>
+        <p v-show="!store.isLoading && isJokeListEmpty" style="font-size: 1.5rem; font-style: italic">
+            Jokes not found...
+        </p>
     </div>
 </template>
 
